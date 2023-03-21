@@ -1,0 +1,15 @@
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\bin\Debug\AppReporteErrores.exe.config
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\bin\Debug\AppReporteErrores.exe
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\bin\Debug\AppReporteErrores.pdb
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.csproj.AssemblyReference.cache
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.csproj.SuggestedBindingRedirects.cache
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.frmNominal.resources
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.Properties.Resources.resources
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.csproj.GenerateResource.cache
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.csproj.CoreCompileInputs.cache
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.exe
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.pdb
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.frmCargarTramas.resources
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.frmMain.resources
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.frmBarraProgreso.resources
+D:\Practica_C#\AppReporteErrores\AppReporteErrores\obj\Debug\AppReporteErrores.frmFiltrado.resources
