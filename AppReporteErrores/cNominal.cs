@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using System.Security.Policy;
 
 namespace AppReporteErrores
 {
@@ -187,5 +189,54 @@ namespace AppReporteErrores
             return aDatos;
         }
 
+        public DataSet CargarRangoEdades()
+        {
+            string CadenaConsulta = "select distinct GRUPO_EDAD from EDADES";
+            // Ejecutar la consulta
+            aAdaptador.SelectCommand = new SqlCommand(CadenaConsulta, aConexion);
+            //aAdaptador.SelectCommand.Parameters.AddWithValue("MicroRed", SqlDbType.VarChar).Value = MicroRed;
+            aAdaptador.SelectCommand.CommandTimeout = 1000;
+            aDatos = new DataSet();
+            aAdaptador.Fill(aDatos);
+            return aDatos;
+        }
+        public DataSet Filtro(string sp, string Microred, string Establecimiento, string FechaInicio, string FechaFin, string CodigoItem, string TipoDx, string ValorLab, string DNIPaciente, string DNIPersonalSalud, string RangoEdades, string APP, string Edad,string TipoEdad, string Sexo)
+        {
+            //string resultado;
+            //string cadena = sp+" '"+ ruta+"',"+mes+", "+ anio;
+            // Ejecutar la consulta
+            aAdaptador.SelectCommand = new SqlCommand(sp, aConexion)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            aAdaptador.SelectCommand.CommandTimeout = 1000;
+            aAdaptador.SelectCommand.Parameters.Add("@Microred", SqlDbType.VarChar).Value = Microred;
+            aAdaptador.SelectCommand.Parameters.Add("@Establecimiento", SqlDbType.VarChar).Value = Establecimiento;
+            aAdaptador.SelectCommand.Parameters.Add("@FechaInicio", SqlDbType.VarChar).Value = FechaInicio;
+            aAdaptador.SelectCommand.Parameters.Add("@FechaFin", SqlDbType.VarChar).Value = FechaFin;
+            aAdaptador.SelectCommand.Parameters.Add("@CodigoItem", SqlDbType.VarChar).Value = CodigoItem;
+            aAdaptador.SelectCommand.Parameters.Add("@TipoDx", SqlDbType.VarChar).Value = TipoDx;
+            aAdaptador.SelectCommand.Parameters.Add("@ValorLab", SqlDbType.VarChar).Value = ValorLab;
+            aAdaptador.SelectCommand.Parameters.Add("@DNIPaciente", SqlDbType.VarChar).Value = DNIPaciente;
+            aAdaptador.SelectCommand.Parameters.Add("@DNIPersonalSalud", SqlDbType.VarChar).Value = DNIPersonalSalud;
+            aAdaptador.SelectCommand.Parameters.Add("@RangoEdades", SqlDbType.VarChar).Value = RangoEdades;
+            aAdaptador.SelectCommand.Parameters.Add("@APP", SqlDbType.VarChar).Value = APP;
+            aAdaptador.SelectCommand.Parameters.Add("@Edad", SqlDbType.VarChar).Value = Edad;
+            aAdaptador.SelectCommand.Parameters.Add("@TipoEdad", SqlDbType.VarChar).Value = TipoEdad;
+            aAdaptador.SelectCommand.Parameters.Add("@Sexo", SqlDbType.VarChar).Value = Sexo;
+            aAdaptador.SelectCommand.CommandTimeout = 1000;
+            aDatos = new DataSet();
+            aAdaptador.Fill(aDatos);
+
+            return aDatos;
+        }
+
+        public void GenerarNumeracionDGV(DataGridView dgv)
+        {
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                dgv.Rows[i].HeaderCell.Value = (i + 1).ToString();
+            }
+        }
     }
 }

@@ -47,7 +47,6 @@
             this.cboTipoEdad = new System.Windows.Forms.ComboBox();
             this.txtDNIPersonal = new System.Windows.Forms.TextBox();
             this.txtDNIPaciente = new System.Windows.Forms.TextBox();
-            this.numEdad = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtApp = new System.Windows.Forms.TextBox();
@@ -60,9 +59,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtValorLab = new System.Windows.Forms.TextBox();
             this.cboTipoDx = new System.Windows.Forms.ComboBox();
+            this.dgvFiltro = new System.Windows.Forms.DataGridView();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnExportarExcel = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.txtEdad = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtNroRegistros = new System.Windows.Forms.TextBox();
             this.gboMicroEstFecha.SuspendLayout();
             this.gboFiltros.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltro)).BeginInit();
             this.SuspendLayout();
             // 
             // cboMicrored
@@ -178,13 +184,13 @@
             // 
             // gboFiltros
             // 
+            this.gboFiltros.Controls.Add(this.txtEdad);
             this.gboFiltros.Controls.Add(this.cboRandoEdades);
             this.gboFiltros.Controls.Add(this.txtNombresPersonal);
             this.gboFiltros.Controls.Add(this.cboSexo);
             this.gboFiltros.Controls.Add(this.cboTipoEdad);
             this.gboFiltros.Controls.Add(this.txtDNIPersonal);
             this.gboFiltros.Controls.Add(this.txtDNIPaciente);
-            this.gboFiltros.Controls.Add(this.numEdad);
             this.gboFiltros.Controls.Add(this.label9);
             this.gboFiltros.Controls.Add(this.label13);
             this.gboFiltros.Controls.Add(this.txtApp);
@@ -209,6 +215,22 @@
             // cboRandoEdades
             // 
             this.cboRandoEdades.FormattingEnabled = true;
+            this.cboRandoEdades.Items.AddRange(new object[] {
+            "",
+            "0-4 AÑOS",
+            "5-9 AÑOS",
+            "10-14 AÑOS",
+            "15-19 AÑOS",
+            "20-24 AÑOS",
+            "25-29 AÑOS",
+            "30-34 AÑOS",
+            "35-39 AÑOS",
+            "40-44 AÑOS",
+            "45-49 AÑOS",
+            "50-54 AÑOS",
+            "55-59 AÑOS",
+            "60-64 AÑOS",
+            "65 a + AÑOS"});
             this.cboRandoEdades.Location = new System.Drawing.Point(367, 136);
             this.cboRandoEdades.Name = "cboRandoEdades";
             this.cboRandoEdades.Size = new System.Drawing.Size(150, 21);
@@ -259,13 +281,6 @@
             this.txtDNIPaciente.Name = "txtDNIPaciente";
             this.txtDNIPaciente.Size = new System.Drawing.Size(100, 20);
             this.txtDNIPaciente.TabIndex = 21;
-            // 
-            // numEdad
-            // 
-            this.numEdad.Location = new System.Drawing.Point(623, 60);
-            this.numEdad.Name = "numEdad";
-            this.numEdad.Size = new System.Drawing.Size(83, 20);
-            this.numEdad.TabIndex = 19;
             // 
             // label9
             // 
@@ -366,7 +381,7 @@
             // 
             this.cboTipoDx.FormattingEnabled = true;
             this.cboTipoDx.Items.AddRange(new object[] {
-            "",
+            " ",
             "P",
             "D",
             "R"});
@@ -375,11 +390,82 @@
             this.cboTipoDx.Size = new System.Drawing.Size(100, 21);
             this.cboTipoDx.TabIndex = 7;
             // 
+            // dgvFiltro
+            // 
+            this.dgvFiltro.AllowUserToAddRows = false;
+            this.dgvFiltro.AllowUserToDeleteRows = false;
+            this.dgvFiltro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiltro.Location = new System.Drawing.Point(12, 225);
+            this.dgvFiltro.Name = "dgvFiltro";
+            this.dgvFiltro.ReadOnly = true;
+            this.dgvFiltro.Size = new System.Drawing.Size(905, 397);
+            this.dgvFiltro.TabIndex = 9;
+            this.dgvFiltro.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiltro_RowEnter);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Location = new System.Drawing.Point(969, 225);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(129, 75);
+            this.btnFiltrar.TabIndex = 10;
+            this.btnFiltrar.Text = "FILTRAR";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Location = new System.Drawing.Point(969, 329);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(129, 75);
+            this.btnExportarExcel.TabIndex = 11;
+            this.btnExportarExcel.Text = "EXPORTAR A EXCEL";
+            this.btnExportarExcel.UseVisualStyleBackColor = true;
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(969, 438);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(129, 75);
+            this.btnSalir.TabIndex = 12;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // txtEdad
+            // 
+            this.txtEdad.Location = new System.Drawing.Point(623, 65);
+            this.txtEdad.Name = "txtEdad";
+            this.txtEdad.Size = new System.Drawing.Size(83, 20);
+            this.txtEdad.TabIndex = 26;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(966, 570);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(77, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Nro Registros: ";
+            // 
+            // txtNroRegistros
+            // 
+            this.txtNroRegistros.Location = new System.Drawing.Point(969, 586);
+            this.txtNroRegistros.Name = "txtNroRegistros";
+            this.txtNroRegistros.Size = new System.Drawing.Size(129, 20);
+            this.txtNroRegistros.TabIndex = 14;
+            // 
             // frmFiltrado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1153, 646);
+            this.Controls.Add(this.txtNroRegistros);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.btnSalir);
+            this.Controls.Add(this.btnExportarExcel);
+            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.dgvFiltro);
             this.Controls.Add(this.gboFiltros);
             this.Controls.Add(this.gboMicroEstFecha);
             this.Name = "frmFiltrado";
@@ -388,8 +474,9 @@
             this.gboMicroEstFecha.PerformLayout();
             this.gboFiltros.ResumeLayout(false);
             this.gboFiltros.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltro)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -414,7 +501,6 @@
         private System.Windows.Forms.ComboBox cboTipoEdad;
         private System.Windows.Forms.TextBox txtDNIPersonal;
         private System.Windows.Forms.TextBox txtDNIPaciente;
-        private System.Windows.Forms.NumericUpDown numEdad;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtApp;
@@ -427,5 +513,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtValorLab;
         private System.Windows.Forms.ComboBox cboTipoDx;
+        private System.Windows.Forms.DataGridView dgvFiltro;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnExportarExcel;
+        private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.TextBox txtEdad;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtNroRegistros;
     }
 }
