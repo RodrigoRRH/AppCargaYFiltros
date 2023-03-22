@@ -54,6 +54,7 @@ namespace AppReporteErrores
             fila["MicroRed"] = "";
             dt.Rows.InsertAt(fila, 0);
 
+            cboMicrored.ValueMember = "Codigo_MicroRed";
             cboMicrored.DisplayMember = "MicroRed";
             cboMicrored.DataSource = dt;
         }
@@ -65,13 +66,22 @@ namespace AppReporteErrores
             fila1["Establecimiento"] = "";
             dt2.Rows.InsertAt(fila1, 0);
 
-            //cboEstablecimiento.ValueMember = "MicroRed";
+            cboEstablecimiento.ValueMember = "Id_Establecimiento";
             cboEstablecimiento.DisplayMember = "Establecimiento";
             cboEstablecimiento.DataSource = dt2;
 
         }
 
         private void cboMicrored_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboMicrored.SelectedValue.ToString() != null | cboMicrored.SelectedValue.ToString() != "")
+            {
+                string microred = cboMicrored.SelectedValue.ToString();
+                CargaCboEstablecimiento(microred);
+            }
+        }
+
+        private void cboMicrored_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cboMicrored.SelectedValue.ToString() != null | cboMicrored.SelectedValue.ToString() != "")
             {

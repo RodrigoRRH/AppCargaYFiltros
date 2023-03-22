@@ -166,7 +166,7 @@ namespace AppReporteErrores
 
         public DataSet CargarMicrored()
         {
-            string CadenaConsulta = "select distinct MicroRed from MAESTRO_HIS_ESTABLECIMIENTO\r\nwhere Red = 'Cusco Norte' and Codigo_MicroRed <> '00'\r\ngroup by MicroRed";
+            string CadenaConsulta = "select distinct Codigo_MicroRed, MicroRed from MAESTRO_HIS_ESTABLECIMIENTO where Red = 'CUSCO NORTE'";
             // Ejecutar la consulta
             aAdaptador.SelectCommand = new SqlCommand(CadenaConsulta, aConexion);
             aAdaptador.SelectCommand.CommandTimeout = 1000;
@@ -177,15 +177,13 @@ namespace AppReporteErrores
 
         public DataSet CargarEstablecimiento(string MicroRed)
         {
-            string CadenaConsulta = "select MicroRed, Nombre_Establecimiento as Establecimiento from MAESTRO_HIS_ESTABLECIMIENTO \r\nwhere Red = 'Cusco Norte' and Codigo_MicroRed <> '00' and MicroRed = @MicroRed\r\ngroup by MicroRed, Nombre_Establecimiento";
+            string CadenaConsulta = "select Id_Establecimiento, Nombre_Establecimiento as Establecimiento, Codigo_MicroRed from MAESTRO_HIS_ESTABLECIMIENTO where Red = 'CUSCO NORTE' and Codigo_MicroRed = '"+MicroRed+"' order by MicroRed";
             // Ejecutar la consulta
-            aConexion.Open();
             aAdaptador.SelectCommand = new SqlCommand(CadenaConsulta, aConexion);
-            aAdaptador.SelectCommand.Parameters.AddWithValue("MicroRed", SqlDbType.VarChar).Value = MicroRed;
+            //aAdaptador.SelectCommand.Parameters.AddWithValue("MicroRed", SqlDbType.VarChar).Value = MicroRed;
             aAdaptador.SelectCommand.CommandTimeout = 1000;
             aDatos = new DataSet();
             aAdaptador.Fill(aDatos);
-            aConexion.Close();  
             return aDatos;
         }
 
