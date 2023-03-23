@@ -41,28 +41,34 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gboFiltros = new System.Windows.Forms.GroupBox();
-            this.cboTipoDx = new System.Windows.Forms.ComboBox();
-            this.txtValorLab = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtApp = new System.Windows.Forms.TextBox();
-            this.numEdad = new System.Windows.Forms.NumericUpDown();
-            this.txtDNIPaciente = new System.Windows.Forms.TextBox();
-            this.txtDNIPersonal = new System.Windows.Forms.TextBox();
-            this.cboTipoEdad = new System.Windows.Forms.ComboBox();
-            this.cboSexo = new System.Windows.Forms.ComboBox();
-            this.txtNombresPersonal = new System.Windows.Forms.TextBox();
             this.cboRandoEdades = new System.Windows.Forms.ComboBox();
+            this.txtNombresPersonal = new System.Windows.Forms.TextBox();
+            this.cboSexo = new System.Windows.Forms.ComboBox();
+            this.cboTipoEdad = new System.Windows.Forms.ComboBox();
+            this.txtDNIPersonal = new System.Windows.Forms.TextBox();
+            this.txtDNIPaciente = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtApp = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtValorLab = new System.Windows.Forms.TextBox();
+            this.cboTipoDx = new System.Windows.Forms.ComboBox();
+            this.dgvFiltro = new System.Windows.Forms.DataGridView();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnExportarExcel = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.txtEdad = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtNroRegistros = new System.Windows.Forms.TextBox();
             this.gboMicroEstFecha.SuspendLayout();
             this.gboFiltros.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltro)).BeginInit();
             this.SuspendLayout();
             // 
             // cboMicrored
@@ -73,6 +79,7 @@
             this.cboMicrored.Size = new System.Drawing.Size(200, 21);
             this.cboMicrored.TabIndex = 0;
             this.cboMicrored.SelectedIndexChanged += new System.EventHandler(this.cboMicrored_SelectedIndexChanged);
+            this.cboMicrored.SelectionChangeCommitted += new System.EventHandler(this.cboMicrored_SelectionChangeCommitted);
             // 
             // cboEstablecimiento
             // 
@@ -177,13 +184,13 @@
             // 
             // gboFiltros
             // 
+            this.gboFiltros.Controls.Add(this.txtEdad);
             this.gboFiltros.Controls.Add(this.cboRandoEdades);
             this.gboFiltros.Controls.Add(this.txtNombresPersonal);
             this.gboFiltros.Controls.Add(this.cboSexo);
             this.gboFiltros.Controls.Add(this.cboTipoEdad);
             this.gboFiltros.Controls.Add(this.txtDNIPersonal);
             this.gboFiltros.Controls.Add(this.txtDNIPaciente);
-            this.gboFiltros.Controls.Add(this.numEdad);
             this.gboFiltros.Controls.Add(this.label9);
             this.gboFiltros.Controls.Add(this.label13);
             this.gboFiltros.Controls.Add(this.txtApp);
@@ -205,134 +212,48 @@
             this.gboFiltros.TabIndex = 8;
             this.gboFiltros.TabStop = false;
             // 
-            // cboTipoDx
+            // cboRandoEdades
             // 
-            this.cboTipoDx.FormattingEnabled = true;
-            this.cboTipoDx.Items.AddRange(new object[] {
+            this.cboRandoEdades.FormattingEnabled = true;
+            this.cboRandoEdades.Items.AddRange(new object[] {
             "",
-            "P",
-            "D",
-            "R"});
-            this.cboTipoDx.Location = new System.Drawing.Point(119, 60);
-            this.cboTipoDx.Name = "cboTipoDx";
-            this.cboTipoDx.Size = new System.Drawing.Size(100, 21);
-            this.cboTipoDx.TabIndex = 7;
+            "0-4 AÑOS",
+            "5-9 AÑOS",
+            "10-14 AÑOS",
+            "15-19 AÑOS",
+            "20-24 AÑOS",
+            "25-29 AÑOS",
+            "30-34 AÑOS",
+            "35-39 AÑOS",
+            "40-44 AÑOS",
+            "45-49 AÑOS",
+            "50-54 AÑOS",
+            "55-59 AÑOS",
+            "60-64 AÑOS",
+            "65 a + AÑOS"});
+            this.cboRandoEdades.Location = new System.Drawing.Point(367, 136);
+            this.cboRandoEdades.Name = "cboRandoEdades";
+            this.cboRandoEdades.Size = new System.Drawing.Size(150, 21);
+            this.cboRandoEdades.TabIndex = 25;
             // 
-            // txtValorLab
+            // txtNombresPersonal
             // 
-            this.txtValorLab.Location = new System.Drawing.Point(119, 97);
-            this.txtValorLab.Name = "txtValorLab";
-            this.txtValorLab.Size = new System.Drawing.Size(100, 20);
-            this.txtValorLab.TabIndex = 8;
+            this.txtNombresPersonal.Location = new System.Drawing.Point(238, 104);
+            this.txtNombresPersonal.Name = "txtNombresPersonal";
+            this.txtNombresPersonal.Size = new System.Drawing.Size(279, 20);
+            this.txtNombresPersonal.TabIndex = 24;
             // 
-            // label6
+            // cboSexo
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 64);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "TIPO DX";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 105);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "VALOR LAB";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(540, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(28, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "APP";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 143);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 13);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "DNI PACIENTE";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(540, 143);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "SEXO";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(540, 64);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(37, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "EDAD";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(540, 105);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 13);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "TIPO EDAD";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(235, 139);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(93, 13);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "RANGO EDADES";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(235, 82);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "DNI PERSONAL SALUD";
-            // 
-            // txtApp
-            // 
-            this.txtApp.Location = new System.Drawing.Point(623, 30);
-            this.txtApp.Name = "txtApp";
-            this.txtApp.Size = new System.Drawing.Size(83, 20);
-            this.txtApp.TabIndex = 18;
-            // 
-            // numEdad
-            // 
-            this.numEdad.Location = new System.Drawing.Point(623, 60);
-            this.numEdad.Name = "numEdad";
-            this.numEdad.Size = new System.Drawing.Size(83, 20);
-            this.numEdad.TabIndex = 19;
-            // 
-            // txtDNIPaciente
-            // 
-            this.txtDNIPaciente.Location = new System.Drawing.Point(119, 136);
-            this.txtDNIPaciente.Name = "txtDNIPaciente";
-            this.txtDNIPaciente.Size = new System.Drawing.Size(100, 20);
-            this.txtDNIPaciente.TabIndex = 21;
-            // 
-            // txtDNIPersonal
-            // 
-            this.txtDNIPersonal.Location = new System.Drawing.Point(367, 79);
-            this.txtDNIPersonal.Name = "txtDNIPersonal";
-            this.txtDNIPersonal.Size = new System.Drawing.Size(150, 20);
-            this.txtDNIPersonal.TabIndex = 9;
+            this.cboSexo.FormattingEnabled = true;
+            this.cboSexo.Items.AddRange(new object[] {
+            "",
+            "F",
+            "M"});
+            this.cboSexo.Location = new System.Drawing.Point(623, 137);
+            this.cboSexo.Name = "cboSexo";
+            this.cboSexo.Size = new System.Drawing.Size(83, 21);
+            this.cboSexo.TabIndex = 23;
             // 
             // cboTipoEdad
             // 
@@ -347,38 +268,204 @@
             this.cboTipoEdad.Size = new System.Drawing.Size(83, 21);
             this.cboTipoEdad.TabIndex = 22;
             // 
-            // cboSexo
+            // txtDNIPersonal
             // 
-            this.cboSexo.FormattingEnabled = true;
-            this.cboSexo.Items.AddRange(new object[] {
-            "",
-            "F",
-            "M"});
-            this.cboSexo.Location = new System.Drawing.Point(623, 137);
-            this.cboSexo.Name = "cboSexo";
-            this.cboSexo.Size = new System.Drawing.Size(83, 21);
-            this.cboSexo.TabIndex = 23;
+            this.txtDNIPersonal.Location = new System.Drawing.Point(367, 79);
+            this.txtDNIPersonal.Name = "txtDNIPersonal";
+            this.txtDNIPersonal.Size = new System.Drawing.Size(150, 20);
+            this.txtDNIPersonal.TabIndex = 9;
             // 
-            // txtNombresPersonal
+            // txtDNIPaciente
             // 
-            this.txtNombresPersonal.Location = new System.Drawing.Point(238, 104);
-            this.txtNombresPersonal.Name = "txtNombresPersonal";
-            this.txtNombresPersonal.Size = new System.Drawing.Size(279, 20);
-            this.txtNombresPersonal.TabIndex = 24;
+            this.txtDNIPaciente.Location = new System.Drawing.Point(119, 136);
+            this.txtDNIPaciente.Name = "txtDNIPaciente";
+            this.txtDNIPaciente.Size = new System.Drawing.Size(100, 20);
+            this.txtDNIPaciente.TabIndex = 21;
             // 
-            // cboRandoEdades
+            // label9
             // 
-            this.cboRandoEdades.FormattingEnabled = true;
-            this.cboRandoEdades.Location = new System.Drawing.Point(367, 136);
-            this.cboRandoEdades.Name = "cboRandoEdades";
-            this.cboRandoEdades.Size = new System.Drawing.Size(150, 21);
-            this.cboRandoEdades.TabIndex = 25;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(21, 143);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 13);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "DNI PACIENTE";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(235, 139);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(93, 13);
+            this.label13.TabIndex = 16;
+            this.label13.Text = "RANGO EDADES";
+            // 
+            // txtApp
+            // 
+            this.txtApp.Location = new System.Drawing.Point(623, 30);
+            this.txtApp.Name = "txtApp";
+            this.txtApp.Size = new System.Drawing.Size(83, 20);
+            this.txtApp.TabIndex = 18;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(235, 82);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "DNI PERSONAL SALUD";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(540, 105);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "TIPO EDAD";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(540, 64);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(37, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "EDAD";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(540, 143);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(36, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "SEXO";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(540, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(28, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "APP";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(21, 105);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "VALOR LAB";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(21, 64);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "TIPO DX";
+            // 
+            // txtValorLab
+            // 
+            this.txtValorLab.Location = new System.Drawing.Point(119, 97);
+            this.txtValorLab.Name = "txtValorLab";
+            this.txtValorLab.Size = new System.Drawing.Size(100, 20);
+            this.txtValorLab.TabIndex = 8;
+            // 
+            // cboTipoDx
+            // 
+            this.cboTipoDx.FormattingEnabled = true;
+            this.cboTipoDx.Items.AddRange(new object[] {
+            " ",
+            "P",
+            "D",
+            "R"});
+            this.cboTipoDx.Location = new System.Drawing.Point(119, 60);
+            this.cboTipoDx.Name = "cboTipoDx";
+            this.cboTipoDx.Size = new System.Drawing.Size(100, 21);
+            this.cboTipoDx.TabIndex = 7;
+            // 
+            // dgvFiltro
+            // 
+            this.dgvFiltro.AllowUserToAddRows = false;
+            this.dgvFiltro.AllowUserToDeleteRows = false;
+            this.dgvFiltro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiltro.Location = new System.Drawing.Point(12, 225);
+            this.dgvFiltro.Name = "dgvFiltro";
+            this.dgvFiltro.ReadOnly = true;
+            this.dgvFiltro.Size = new System.Drawing.Size(905, 397);
+            this.dgvFiltro.TabIndex = 9;
+            this.dgvFiltro.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiltro_RowEnter);
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Location = new System.Drawing.Point(969, 225);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(129, 75);
+            this.btnFiltrar.TabIndex = 10;
+            this.btnFiltrar.Text = "FILTRAR";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // btnExportarExcel
+            // 
+            this.btnExportarExcel.Location = new System.Drawing.Point(969, 329);
+            this.btnExportarExcel.Name = "btnExportarExcel";
+            this.btnExportarExcel.Size = new System.Drawing.Size(129, 75);
+            this.btnExportarExcel.TabIndex = 11;
+            this.btnExportarExcel.Text = "EXPORTAR A EXCEL";
+            this.btnExportarExcel.UseVisualStyleBackColor = true;
+            this.btnExportarExcel.Click += new System.EventHandler(this.btnExportarExcel_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(969, 438);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(129, 75);
+            this.btnSalir.TabIndex = 12;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // txtEdad
+            // 
+            this.txtEdad.Location = new System.Drawing.Point(623, 65);
+            this.txtEdad.Name = "txtEdad";
+            this.txtEdad.Size = new System.Drawing.Size(83, 20);
+            this.txtEdad.TabIndex = 26;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(966, 570);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(77, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Nro Registros: ";
+            // 
+            // txtNroRegistros
+            // 
+            this.txtNroRegistros.Location = new System.Drawing.Point(969, 586);
+            this.txtNroRegistros.Name = "txtNroRegistros";
+            this.txtNroRegistros.Size = new System.Drawing.Size(129, 20);
+            this.txtNroRegistros.TabIndex = 14;
             // 
             // frmFiltrado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1153, 646);
+            this.Controls.Add(this.txtNroRegistros);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.btnSalir);
+            this.Controls.Add(this.btnExportarExcel);
+            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.dgvFiltro);
             this.Controls.Add(this.gboFiltros);
             this.Controls.Add(this.gboMicroEstFecha);
             this.Name = "frmFiltrado";
@@ -387,8 +474,9 @@
             this.gboMicroEstFecha.PerformLayout();
             this.gboFiltros.ResumeLayout(false);
             this.gboFiltros.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numEdad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiltro)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -413,7 +501,6 @@
         private System.Windows.Forms.ComboBox cboTipoEdad;
         private System.Windows.Forms.TextBox txtDNIPersonal;
         private System.Windows.Forms.TextBox txtDNIPaciente;
-        private System.Windows.Forms.NumericUpDown numEdad;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtApp;
@@ -426,5 +513,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtValorLab;
         private System.Windows.Forms.ComboBox cboTipoDx;
+        private System.Windows.Forms.DataGridView dgvFiltro;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnExportarExcel;
+        private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.TextBox txtEdad;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtNroRegistros;
     }
 }
