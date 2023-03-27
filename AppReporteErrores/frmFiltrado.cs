@@ -17,6 +17,11 @@ namespace AppReporteErrores
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
         DataTable dt3 = new DataTable();
+        DataTable dataExcel = new DataTable();
+        DataSet dsExcel = new DataSet();
+
+        DataTable datos = new DataTable();
+
         //string s = "select * from vista_procesos\r\nwhere MicroRed = 'urubamba' and Establecimiento = 'chillca' and Fecha_Atencion = '3-2-2023' and Codigo_Item = '93784'";
         public frmFiltrado()
         {
@@ -109,8 +114,9 @@ namespace AppReporteErrores
             //}
         }
 
-        public void FiltrarDatos()
+        public DataTable FiltrarDatos()
         {
+            CheckForIllegalCrossThreadCalls = false;
             string Microred = cboMicrored.Text;
             string Establecimiento = cboEstablecimiento.Text;
             string FechaInicio = dteDesde.Value.ToShortDateString();
@@ -126,27 +132,36 @@ namespace AppReporteErrores
             string TipoEdad = cboTipoEdad.Text;
             string Sexo = cboSexo.Text;
 
-            dgvFiltro.DataSource = aNominal.Filtro("sp_Filtro", Microred, Establecimiento, FechaInicio, FechaFin, CodigoItem, TipoDx, ValorLab, DNIPaciente, DNIPersonalSalud, RangoEdades, APP, Edad, TipoEdad, Sexo).Tables[0];
-            aNominal.MostrarMensajeOK("Filtro Realizado", "ALERTA!");
+            DataTable data = new DataTable();
+            //dgvFiltro.DataSource = aNominal.Filtro("sp_Filtro", Microred, Establecimiento, FechaInicio, FechaFin, CodigoItem, TipoDx, ValorLab, DNIPaciente, DNIPersonalSalud, RangoEdades, APP, Edad, TipoEdad, Sexo).Tables[0];
+            data = aNominal.Filtro("sp_Filtro", Microred, Establecimiento, FechaInicio, FechaFin, CodigoItem, TipoDx, ValorLab, DNIPaciente, DNIPersonalSalud, RangoEdades, APP, Edad, TipoEdad, Sexo).Tables[0];
+            return data;
+            //aNominal.MostrarMensajeOK("Filtro Realizado", "ALERTA!");
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            FiltrarDatos();
-            aNominal.GenerarNumeracionDGV(dgvFiltro);
-            //GenerarNumeracionData();
-            txtNroRegistros.Text = dgvFiltro.RowCount.ToString();
+            if (!bgWork.IsBusy)
+            {
+                //dgvFiltro.Columns.Clear();
+                bgWork.RunWorkerAsync();
+            }
+            else
+            {
+                aNominal.MostrarMensajeOK("Se está filtrando... ", "ALERTA!");
+            }
+
         }
         private void btnExportarExcel_Click(object sender, EventArgs e)
         {
-            //txtDescripcionItem.Text = dteDesde.Value.ToString();
-            //txtDescripcionItem.Text = dteHasta.Value.ToShortDateString();
             txtDescripcionItem.Text = cboMicrored.Text;
+            dataExcel = (DataTable)(dgvFiltro.DataSource);
+            aNominal.ExportarExcel(dataExcel);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+             this.Close();
         }
 
         private void dgvFiltro_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -163,6 +178,70 @@ namespace AppReporteErrores
             for (int i = 0; i < dgvFiltro.Rows.Count; i++)
             {
                 this.dgvFiltro.Rows[i].HeaderCell.Value = (i + 1).ToString();
+            }
+        }
+
+        private void bgWork_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (bgWork.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                datos = FiltrarDatos();
+            }
+        }
+
+        private void bgWork_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            MessageBox.Show("Procesando...espere porfavor", "Mensaje");
+        }
+
+        private void bgWork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                bgWork.CancelAsync();
+                dgvFiltro.Columns.Clear();
+                txtNroRegistros.Text = dgvFiltro.RowCount.ToString();
+            }
+            else
+            {
+                dgvFiltro.DataSource = datos;
+                txtNroRegistros.Text = dgvFiltro.RowCount.ToString();
+                aNominal.GenerarNumeracionDGV(dgvFiltro);
+                aNominal.MostrarMensajeOK("Filtro realizado", "ALERTA!");
+            }
+        }
+
+        private void dgvFiltro_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            aNominal.GenerarNumeracionDGV(dgvFiltro);
+        }
+
+        private void txtDNIPaciente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //textBox solo acepta numeros
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDNIPersonal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

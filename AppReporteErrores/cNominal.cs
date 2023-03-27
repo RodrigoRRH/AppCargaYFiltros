@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Security.Policy;
+using ClosedXML.Excel;
+using System.Security.Cryptography.X509Certificates;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace AppReporteErrores
 {
@@ -237,6 +240,33 @@ namespace AppReporteErrores
             {
                 dgv.Rows[i].HeaderCell.Value = (i + 1).ToString();
             }
+
         }
+
+        public void ExportarExcel(DataTable dataTable)
+        {
+            //Excel (*.xls)|*.xls
+            //Excel Workbook|*.xlsx
+            using (SaveFileDialog saveFile = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+            {
+                if (saveFile.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        using (XLWorkbook workbook = new XLWorkbook())
+                        {
+                            workbook.Worksheets.Add(dataTable, "Filtro");
+                            workbook.SaveAs(saveFile.FileName);
+                        }
+                        MessageBox.Show("Archivo exportado correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -41,6 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gboFiltros = new System.Windows.Forms.GroupBox();
+            this.txtEdad = new System.Windows.Forms.TextBox();
             this.cboRandoEdades = new System.Windows.Forms.ComboBox();
             this.txtNombresPersonal = new System.Windows.Forms.TextBox();
             this.cboSexo = new System.Windows.Forms.ComboBox();
@@ -63,9 +64,10 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnExportarExcel = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.txtEdad = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtNroRegistros = new System.Windows.Forms.TextBox();
+            this.bgWork = new System.ComponentModel.BackgroundWorker();
+            this.bgWorkExpExcel = new System.ComponentModel.BackgroundWorker();
             this.gboMicroEstFecha.SuspendLayout();
             this.gboFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiltro)).BeginInit();
@@ -73,6 +75,7 @@
             // 
             // cboMicrored
             // 
+            this.cboMicrored.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMicrored.FormattingEnabled = true;
             this.cboMicrored.Location = new System.Drawing.Point(149, 22);
             this.cboMicrored.Name = "cboMicrored";
@@ -83,6 +86,7 @@
             // 
             // cboEstablecimiento
             // 
+            this.cboEstablecimiento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstablecimiento.FormattingEnabled = true;
             this.cboEstablecimiento.Location = new System.Drawing.Point(149, 64);
             this.cboEstablecimiento.Name = "cboEstablecimiento";
@@ -105,6 +109,7 @@
             // 
             // txtCodigoItem
             // 
+            this.txtCodigoItem.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigoItem.Location = new System.Drawing.Point(119, 27);
             this.txtCodigoItem.Name = "txtCodigoItem";
             this.txtCodigoItem.Size = new System.Drawing.Size(100, 20);
@@ -114,6 +119,7 @@
             // 
             // txtDescripcionItem
             // 
+            this.txtDescripcionItem.Enabled = false;
             this.txtDescripcionItem.Location = new System.Drawing.Point(238, 27);
             this.txtDescripcionItem.Multiline = true;
             this.txtDescripcionItem.Name = "txtDescripcionItem";
@@ -212,8 +218,17 @@
             this.gboFiltros.TabIndex = 8;
             this.gboFiltros.TabStop = false;
             // 
+            // txtEdad
+            // 
+            this.txtEdad.Location = new System.Drawing.Point(623, 65);
+            this.txtEdad.Name = "txtEdad";
+            this.txtEdad.Size = new System.Drawing.Size(83, 20);
+            this.txtEdad.TabIndex = 26;
+            this.txtEdad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEdad_KeyPress);
+            // 
             // cboRandoEdades
             // 
+            this.cboRandoEdades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRandoEdades.FormattingEnabled = true;
             this.cboRandoEdades.Items.AddRange(new object[] {
             "",
@@ -238,6 +253,7 @@
             // 
             // txtNombresPersonal
             // 
+            this.txtNombresPersonal.Enabled = false;
             this.txtNombresPersonal.Location = new System.Drawing.Point(238, 104);
             this.txtNombresPersonal.Name = "txtNombresPersonal";
             this.txtNombresPersonal.Size = new System.Drawing.Size(279, 20);
@@ -245,6 +261,7 @@
             // 
             // cboSexo
             // 
+            this.cboSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSexo.FormattingEnabled = true;
             this.cboSexo.Items.AddRange(new object[] {
             "",
@@ -257,6 +274,7 @@
             // 
             // cboTipoEdad
             // 
+            this.cboTipoEdad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoEdad.FormattingEnabled = true;
             this.cboTipoEdad.Items.AddRange(new object[] {
             "",
@@ -274,6 +292,7 @@
             this.txtDNIPersonal.Name = "txtDNIPersonal";
             this.txtDNIPersonal.Size = new System.Drawing.Size(150, 20);
             this.txtDNIPersonal.TabIndex = 9;
+            this.txtDNIPersonal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNIPersonal_KeyPress);
             // 
             // txtDNIPaciente
             // 
@@ -281,6 +300,7 @@
             this.txtDNIPaciente.Name = "txtDNIPaciente";
             this.txtDNIPaciente.Size = new System.Drawing.Size(100, 20);
             this.txtDNIPaciente.TabIndex = 21;
+            this.txtDNIPaciente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNIPaciente_KeyPress);
             // 
             // label9
             // 
@@ -302,6 +322,7 @@
             // 
             // txtApp
             // 
+            this.txtApp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtApp.Location = new System.Drawing.Point(623, 30);
             this.txtApp.Name = "txtApp";
             this.txtApp.Size = new System.Drawing.Size(83, 20);
@@ -372,6 +393,7 @@
             // 
             // txtValorLab
             // 
+            this.txtValorLab.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtValorLab.Location = new System.Drawing.Point(119, 97);
             this.txtValorLab.Name = "txtValorLab";
             this.txtValorLab.Size = new System.Drawing.Size(100, 20);
@@ -379,6 +401,7 @@
             // 
             // cboTipoDx
             // 
+            this.cboTipoDx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoDx.FormattingEnabled = true;
             this.cboTipoDx.Items.AddRange(new object[] {
             " ",
@@ -400,6 +423,7 @@
             this.dgvFiltro.ReadOnly = true;
             this.dgvFiltro.Size = new System.Drawing.Size(905, 397);
             this.dgvFiltro.TabIndex = 9;
+            this.dgvFiltro.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFiltro_ColumnHeaderMouseClick);
             this.dgvFiltro.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiltro_RowEnter);
             // 
             // btnFiltrar
@@ -414,7 +438,7 @@
             // 
             // btnExportarExcel
             // 
-            this.btnExportarExcel.Location = new System.Drawing.Point(969, 329);
+            this.btnExportarExcel.Location = new System.Drawing.Point(969, 340);
             this.btnExportarExcel.Name = "btnExportarExcel";
             this.btnExportarExcel.Size = new System.Drawing.Size(129, 75);
             this.btnExportarExcel.TabIndex = 11;
@@ -424,20 +448,13 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(969, 438);
+            this.btnSalir.Location = new System.Drawing.Point(969, 455);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(129, 75);
             this.btnSalir.TabIndex = 12;
             this.btnSalir.Text = "SALIR";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
-            // txtEdad
-            // 
-            this.txtEdad.Location = new System.Drawing.Point(623, 65);
-            this.txtEdad.Name = "txtEdad";
-            this.txtEdad.Size = new System.Drawing.Size(83, 20);
-            this.txtEdad.TabIndex = 26;
             // 
             // label15
             // 
@@ -454,6 +471,14 @@
             this.txtNroRegistros.Name = "txtNroRegistros";
             this.txtNroRegistros.Size = new System.Drawing.Size(129, 20);
             this.txtNroRegistros.TabIndex = 14;
+            // 
+            // bgWork
+            // 
+            this.bgWork.WorkerReportsProgress = true;
+            this.bgWork.WorkerSupportsCancellation = true;
+            this.bgWork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWork_DoWork);
+            this.bgWork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgWork_ProgressChanged);
+            this.bgWork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWork_RunWorkerCompleted);
             // 
             // frmFiltrado
             // 
@@ -520,5 +545,7 @@
         private System.Windows.Forms.TextBox txtEdad;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtNroRegistros;
+        private System.ComponentModel.BackgroundWorker bgWork;
+        private System.ComponentModel.BackgroundWorker bgWorkExpExcel;
     }
 }
